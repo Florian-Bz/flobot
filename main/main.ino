@@ -4,17 +4,28 @@
 int l1 = 200, l2 = 200; // [mm]
 
 // Joint angles (base,shoulder,elbow)
-int joint_angles[3];
+
+// Base
+float theta_b; // [deg]
+float theta_d_b; // [deg/s] 
+float theta_dd_b; // [deg/s^2]
+
+// Shoulder
+float theta_s; // [deg]
+float theta_d_s; // [deg/s] 
+float theta_dd_s; // [deg/s^2]
+
+// Elbow
+float theta_e; // [deg]
+float theta_d_e; // [deg/s] 
+float theta_dd_e; // [deg/s^2]
 
 // EEF coordinates (x,y,z)
-int eef_coords[3];
+//int eef_coords[3];
+int x;
+int y;
+int z;
 
-
-/**
-theta_b (base)
-theta_s (shoulder)
-theta_e (elbow)
-**/
 
 void setup() {
   Serial.begin(9600);
@@ -27,7 +38,7 @@ void loop() {
   delay(1000); // [ms]
 }
 
-void DK(int &theta_1, int &theta_2, int &x, int &y) {
+void DK(int theta_1, int theta_2, int &x, int &y) {
   // Direct kinematics (input: joint angles | output: eef coords)
   x = l1*sin(theta_1) + l2*sin(theta_1+theta_2);
   y = l1*cos(theta_1) + l2*cos(theta_1+theta_2);

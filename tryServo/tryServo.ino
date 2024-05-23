@@ -10,7 +10,10 @@ int pin0 = 9; // Base
 int pin1 = 10; // Shoulder
 int pin2 = 11; // Elbow
 
-int angle = 0;
+// defining joint angles [deg]
+int theta0 = 0; // Base
+int theta1 = 0; // Shoulder
+int theta2 = 0; // Elbow
 
 void setup() 
 {
@@ -28,21 +31,27 @@ void setup()
 
 void loop() 
 { 
-  joint0.write(0); //command to rotate the servo to the specified angle (range: 0-180)
-  delay(2000);  
-  joint0.write(90);
-  delay(2000);  
-  joint0.write(180);
-  delay(2000);  
+  // joint0.write(0); //command to rotate the servo to the specified angle (range: 0-180)
+  // delay(2000);
+  // // joint0.write(90);
+  // // delay(2000);
+  // joint0.write(180);
+  // delay(2000);
+  // // joint0.write(90);
+  // // delay(2000);
 }
 
-void move_to(int position, int speed) // image is in the folder
-{
-  mapSpeed = map(speed, 0, 30, 30, 0);
-  if (position > pos) {
-    for (pos = pos1; pos <= position; pos += 1){
-      joint
-    }
-  }
 
-}
+// void move_to(joint, int position, int speed) // passing an object as a function param
+// {
+//   currentPos = joint.read(); // read motor angle [deg]
+//   speed = map(speed, 0, 30, 30, 0); // map(value, fromCurrentLow(speed), fromCurrentHigh(speed), toTargetLow(time), toTargetHigh(time))
+//   if (position > currentPos) {
+//     for (pos = pos1; pos <= position; pos += 1){
+//       joint
+//     }
+//   }
+// }
+
+
+// int read_angle(join)

@@ -17,23 +17,22 @@ int theta2 = 90; // Elbow
 
 void setup() 
 {
+  // move to home pos at startup
+  home_pos(90);
+
   // attach the servo pins to the servo objects
-  joint0.attach(pin0);  
+  joint0.attach(pin0);
   joint1.attach(pin1);
   joint2.attach(pin2);
 
+  delay(1500);
+
   // call function to adjust position
-
-  // move to home pos
-  delay(1000);
-  home_pos(0, 15);
-
-  delay(1000);
   move_to(joint0, 180, 15); // joint(0,1,2), pos(0-180), speed(0-30)
 }
 
 
-void loop() 
+void loop()
 { 
   // joint0.write(0); //command to rotate the servo to the specified angle (range: 0-180)
   // delay(2000);
@@ -46,6 +45,11 @@ void loop()
 }
 
 
+
+/**
+Move the motor to a desired position between 0-180 deg
+and a desired speed ranging from min 0 to max 30.
+*/
 void move_to(Servo &joint, int position, int speed)
 {
   int currentPos = joint.read(); // read motor angle [deg]
@@ -65,12 +69,26 @@ void move_to(Servo &joint, int position, int speed)
 }
 
 
-void home_pos(int homing_pos, int homing_speed)
+
+/**
+Servo motors jump to 90 deg at startup.
+To change this angel do a .write() with the desired angle before .attach()
+*/
+void home_pos(int homing_pos)
 {
-  move_to(joint0,homing_pos,homing_speed);
-  // move_to(joint1,homing_pos,homing_speed);
-  // move_to(joint2,homing_pos,homing_speed);
+  joint0.write(homing_pos);
+  joint1.write(homing_pos);
+  joint2.write(homing_pos);
 }
 
 
-// int read_angle(join)
+
+int read_pos()
+{
+  
+
+}
+
+
+
+

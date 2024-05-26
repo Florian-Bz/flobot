@@ -30,7 +30,7 @@ void setup()
   joint2.write(theta2);
 
   delay(1000);
-  move_to(0, 15); // pos(0-180), speed(0-30)
+  move_to(joint0, 180, 15); // joint(0,1,2), pos(0-180), speed(0-30)
 }
 
 
@@ -47,25 +47,36 @@ void loop()
 }
 
 
-void move_to(int position, int speed) // passing an object as a function param
+void move_to(Servo &joint, int position, int speed)
 {
-  int currentPos = joint0.read(); // read motor angle [deg]
+
+  // if (motorID = 0) {joint = joint0;}
+  // if (motorID = 1) {joint = joint1;}
+  // if (motorID = 2) {joint = joint2;}
+
+  int currentPos = joint.read(); // read motor angle [deg]
   speed = map(speed, 0, 30, 30, 0); // map(value, fromCurrentLow(speed), fromCurrentHigh(speed), toTargetLow(time), toTargetHigh(time))
   if (position > currentPos) {
     for (; currentPos <= position; currentPos += 1) {
-      joint0.write(currentPos);
+      joint.write(currentPos);
       //theta0 = currentPos;
       delay(speed);
     }
   }
   else {
     for (; currentPos >= position; currentPos -= 1) {
-      joint0.write(currentPos);
+      joint.write(currentPos);
       //theta0 = currentPos;
       delay(speed);
     }
   }
 }
+
+
+// void home_pos()
+// {
+//   move_to()
+// }
 
 
 // int read_angle(join)

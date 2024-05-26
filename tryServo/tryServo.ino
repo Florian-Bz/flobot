@@ -11,9 +11,9 @@ int pin1 = 10; // Shoulder
 int pin2 = 11; // Elbow
 
 // defining joint angles [deg]
-int theta0 = 0; // Base
-int theta1 = 0; // Shoulder
-int theta2 = 0; // Elbow
+int theta0 = 90; // Base
+int theta1 = 90; // Shoulder
+int theta2 = 90; // Elbow
 
 void setup() 
 {
@@ -22,10 +22,15 @@ void setup()
   joint1.attach(pin1);
   joint2.attach(pin2);
 
+  // call function to adjust position
+
   // move to home pos
-  joint0.write(90);
-  joint1.write(90);
-  joint2.write(90);
+  joint0.write(theta0);
+  joint1.write(theta1);
+  joint2.write(theta2);
+
+  delay(1000);
+  move_to(0, 15); // pos(0-180), speed(0-30)
 }
 
 
@@ -33,25 +38,34 @@ void loop()
 { 
   // joint0.write(0); //command to rotate the servo to the specified angle (range: 0-180)
   // delay(2000);
-  // // joint0.write(90);
-  // // delay(2000);
+  // joint0.write(90);
+  // delay(2000);
   // joint0.write(180);
   // delay(2000);
-  // // joint0.write(90);
-  // // delay(2000);
+  // joint0.write(90);
+  // delay(2000);
 }
 
 
-// void move_to(joint, int position, int speed) // passing an object as a function param
-// {
-//   currentPos = joint.read(); // read motor angle [deg]
-//   speed = map(speed, 0, 30, 30, 0); // map(value, fromCurrentLow(speed), fromCurrentHigh(speed), toTargetLow(time), toTargetHigh(time))
-//   if (position > currentPos) {
-//     for (pos = pos1; pos <= position; pos += 1){
-//       joint
-//     }
-//   }
-// }
+void move_to(int position, int speed) // passing an object as a function param
+{
+  int currentPos = joint0.read(); // read motor angle [deg]
+  speed = map(speed, 0, 30, 30, 0); // map(value, fromCurrentLow(speed), fromCurrentHigh(speed), toTargetLow(time), toTargetHigh(time))
+  if (position > currentPos) {
+    for (; currentPos <= position; currentPos += 1) {
+      joint0.write(currentPos);
+      //theta0 = currentPos;
+      delay(speed);
+    }
+  }
+  else {
+    for (; currentPos >= position; currentPos -= 1) {
+      joint0.write(currentPos);
+      //theta0 = currentPos;
+      delay(speed);
+    }
+  }
+}
 
 
 // int read_angle(join)

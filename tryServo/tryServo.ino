@@ -10,14 +10,15 @@ int pin0 = 9; // Base
 int pin1 = 10; // Shoulder
 int pin2 = 11; // Elbow
 
-// defining joint angles [deg]
+// defining joint angles [deg] --> array?
 int theta0 = 90; // Base
 int theta1 = 90; // Shoulder
 int theta2 = 90; // Elbow
 
+
 void setup() 
 {
-  // move to home pos at startup
+  // move robot to home pos at startup
   home_pos(90);
 
   // attach the servo pins to the servo objects
@@ -28,7 +29,10 @@ void setup()
   delay(1500);
 
   // call function to adjust position
-  move_to(joint0, 180, 15); // joint(0,1,2), pos(0-180), speed(0-30)
+  move_to(joint0, 135, 15); // joint(0,1,2), pos(0-180), speed(0-30)
+  move_to(joint1, 135, 15); // joint(0,1,2), pos(0-180), speed(0-30)
+  move_to(joint2, 135, 15); // joint(0,1,2), pos(0-180), speed(0-30)
+
 }
 
 
@@ -36,14 +40,7 @@ void loop()
 { 
   // joint0.write(0); //command to rotate the servo to the specified angle (range: 0-180)
   // delay(2000);
-  // joint0.write(90);
-  // delay(2000);
-  // joint0.write(180);
-  // delay(2000);
-  // joint0.write(90);
-  // delay(2000);
 }
-
 
 
 /**
@@ -69,9 +66,8 @@ void move_to(Servo &joint, int position, int speed)
 }
 
 
-
 /**
-Servo motors jump to 90 deg at startup.
+Servo motors jump to 90 deg at startup by default.
 To change this angel do a .write() with the desired angle before .attach()
 */
 void home_pos(int homing_pos)
@@ -80,15 +76,5 @@ void home_pos(int homing_pos)
   joint1.write(homing_pos);
   joint2.write(homing_pos);
 }
-
-
-
-int read_pos()
-{
-  
-
-}
-
-
 
 

@@ -1,22 +1,33 @@
-#include <Servo.h>
+int pin0Pot = A0; // Base potentiometer pin
+int pin1Pot = A1; // Shoulder potentiometer pin
+int pin2Pot = A2; // Elbow potentiometer pin
 
-Servo myservo;  // create servo object to control a servo
-// twelve servo objects can be created on most boards
-
-int pos = 0;    // variable to store the servo position
+float pot0Val; // Base potentiometer value
+float pot1Val; // Shoulder potentiometer value
+float pot2Val; // Elbow potentiometer value
 
 void setup() {
-  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+  Serial.begin(9600); // initialize serial communication at 9600 bits/sec
 }
 
 void loop() {
-  for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    myservo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-  for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-    myservo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
+
+  pot0Val = analogRead(pin0Pot); // read the input on analog pin 0
+  float motorPos = knobToAngle(pot0Val);
+
+
+  Serial.println("potVal"); // print the read value
+  Serial.println(pot0Val); // print the read value
+
+  Serial.println("motorPos"); // print the read value
+  Serial.println(motorPos); // print the read value
+
+  delay(500);
+
+}
+
+// convert potentiometer value to motor angle
+float knobToAngle(float potVal) {
+  float motorAngle = (180./1023.)*potVal;
+  return motorAngle;
 }
